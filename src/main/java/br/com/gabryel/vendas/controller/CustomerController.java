@@ -7,11 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("/customer")
 public class CustomerController {
 
-    private CustomerService customerService;
-
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
+    public CustomerController() {}
 
     @GetMapping("/")
     public String namePage() {
