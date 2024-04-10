@@ -1,7 +1,10 @@
 package br.com.gabryel.vendas.service;
 
+import br.com.gabryel.vendas.entity.Customer;
 import br.com.gabryel.vendas.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CustomerService {
@@ -12,8 +15,12 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public String saveCustomer() {
-        return customerRepository.saveCustomer();
+    public Customer saveCustomer() {
+        return customerRepository.saveCustomer(new Customer("Gabryel"));
+    }
+
+    public List<Customer> findAllCustomer() {
+        return customerRepository.findAllCustomer();
     }
 
 }

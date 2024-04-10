@@ -13,14 +13,9 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/save")
-    public String save() {
-        return customerService.saveCustomer();
+    @GetMapping("/")
+    public String namePage() {
+        return "customer";
     }
-
-
-
-
-
 
 }
