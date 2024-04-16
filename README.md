@@ -7,6 +7,10 @@
   - Estrutura do Projeto: Spring Boot 
   - Banco de dados: H2 SQL
   - Gerenciador de dependências: Maven 
+  
+## Acessos dos links do projeto
+   - [Swagger V3](http://localhost:8081/sistema-vendas/swagger-ui.html)
+   - [Raiz do projeto](http://localhost:8081/sistema-vendas/)
 
 ## Link do curso:
   - Udemy: [Spring Boot Expert](https://www.udemy.com/course/spring-boot-expert/?couponCode=ST8MT40924)

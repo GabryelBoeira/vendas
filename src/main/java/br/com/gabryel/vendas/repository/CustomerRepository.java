@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public class CustomerRepository {
 
-	private static final String SAVE_CUSTOMER = "INSERT INTO CLIENTE (nome) values (?)"; // String
+	private static final String SAVE_CUSTOMER = "INSERT INTO CLIENTE (id, nome) values (default, ?)"; // String
 	private static final String SELECT_ALL_CUSTOMER = "SELECT * FROM CLIENTE";
 	private static final String UPDATE_CUSTOMER = "UPDATE CLIENTE SET nome = ? WHERE id = ?";
 	private static final String DELETE_CUSTOMER = "DELETE FROM CLIENTE where id = ?";

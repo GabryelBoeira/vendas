@@ -1,14 +1,28 @@
 package br.com.gabryel.vendas.entity;
 
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "PEDIDO")
 public class PurchaseOrder {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
     private Integer id;
-    private Customer customer;
+
+    @Column(name = "DATA_PEDIDO")
     private LocalDateTime dateOrder;
+
+    @Column(name = "VALOR_TOTAL")
     private BigDecimal valueTotal;
+
+    @ManyToOne
+    @JoinColumn(name = "CLIENTE_ID", referencedColumnName = "ID", nullable = false)
+    private Customer customer;
 
     public Integer getId() {
         return id;

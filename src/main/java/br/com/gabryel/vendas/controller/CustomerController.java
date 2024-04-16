@@ -1,10 +1,13 @@
 package br.com.gabryel.vendas.controller;
 
-import br.com.gabryel.vendas.service.CustomerService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/customer")
+@RestController
+@RequestMapping("/customer")
+@Tag(name = "Cliente", description = "Cliente API")
 public class CustomerController {
 
     public CustomerController() {}
@@ -13,5 +16,6 @@ public class CustomerController {
     public String namePage() {
         return "customer";
     }
+
 
 }
