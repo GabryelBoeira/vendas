@@ -4,16 +4,20 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Entity
 @Table(name = "PEDIDO_ITEM")
+@AllArgsConstructor
+@NoArgsConstructor
 public class PurchaseOrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     private Integer id;
+
+    @Column(name = "QUANTIDADE")
+    private Integer quantity;
 
     @ManyToOne
     @JoinColumn(name = "PEDIDO_ID", referencedColumnName = "ID", nullable = false)
@@ -22,9 +26,6 @@ public class PurchaseOrderItem {
     @ManyToOne
     @JoinColumn(name = "PRODUTO_ID", referencedColumnName = "ID", nullable = false)
     private Product product;
-
-    @Column(name = "QUANTIDADE")
-    private Integer quantity;
 
     public Integer getId() {
         return id;

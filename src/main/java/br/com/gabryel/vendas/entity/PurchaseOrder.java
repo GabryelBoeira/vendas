@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "PEDIDO")
@@ -23,6 +24,9 @@ public class PurchaseOrder {
     @ManyToOne
     @JoinColumn(name = "CLIENTE_ID", referencedColumnName = "ID", nullable = false)
     private Customer customer;
+
+    @OneToMany(mappedBy = "purchaseOrder")
+    private List<PurchaseOrderItem> items;
 
     public Integer getId() {
         return id;
@@ -55,4 +59,13 @@ public class PurchaseOrder {
     public void setValueTotal(BigDecimal valueTotal) {
         this.valueTotal = valueTotal;
     }
+
+    public List<PurchaseOrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<PurchaseOrderItem> items) {
+        this.items = items;
+    }
+
 }
