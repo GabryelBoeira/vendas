@@ -6,16 +6,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/customer")
-@Tag(name = "Cliente", description = "Cliente API")
-public class CustomerController {
+@RequestMapping("/product")
+@Tag(name = "Produto", description = "EndPoint de produtos")
+public class ProductController {
 
-    public CustomerController() {}
+    public ProductController() {}
 
     @GetMapping("/")
     public String namePage() {
-        return "Cliente";
+        return "Produto";
     }
-
 
 }
