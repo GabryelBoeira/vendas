@@ -1,4 +1,4 @@
-package br.com.gabryel.vendas.repository;
+package br.com.gabryel.vendas.repository.otherVersions;
 
 import br.com.gabryel.vendas.entity.Product;
 import jakarta.persistence.EntityManager;
@@ -8,11 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public class ProductRepository {
+public class ProductEntityManagerRepository {
 
     private final EntityManager entityManager;
 
-    public ProductRepository(EntityManager entityManager) {
+    public ProductEntityManagerRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

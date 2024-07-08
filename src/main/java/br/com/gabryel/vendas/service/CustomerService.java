@@ -3,7 +3,7 @@ package br.com.gabryel.vendas.service;
 import br.com.gabryel.vendas.dto.CustomerDTO;
 import br.com.gabryel.vendas.entity.Customer;
 import br.com.gabryel.vendas.mapper.CustomerMapper;
-import br.com.gabryel.vendas.repository.CustomerRepository;
+import br.com.gabryel.vendas.repository.otherVersions.CustomerJdbcRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +12,10 @@ import java.util.List;
 @Service
 public class CustomerService {
 
-    private CustomerRepository customerRepository;
+    private CustomerJdbcRepository customerRepository;
     private CustomerMapper customerMapper;
 
-    public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper) {
+    public CustomerService(CustomerJdbcRepository customerRepository, CustomerMapper customerMapper) {
         this.customerMapper = Mappers.getMapper(CustomerMapper.class);
         this.customerRepository = customerRepository;
     }

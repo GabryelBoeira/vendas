@@ -1,4 +1,4 @@
-package br.com.gabryel.vendas.repository;
+package br.com.gabryel.vendas.repository.otherVersions;
 
 import br.com.gabryel.vendas.entity.Customer;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -7,17 +7,16 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class CustomerRepository {
+public class CustomerJdbcRepository {
 
 	private static final String SAVE_CUSTOMER = "INSERT INTO CLIENTE (id, nome) values (default, ?)"; // String
 	private static final String SELECT_ALL_CUSTOMER = "SELECT * FROM CLIENTE";
 	private static final String UPDATE_CUSTOMER = "UPDATE CLIENTE SET nome = ? WHERE id = ?";
 	private static final String DELETE_CUSTOMER = "DELETE FROM CLIENTE where id = ?";
 
-
 	private final JdbcTemplate jdbcTemplate;
 
-	public CustomerRepository(JdbcTemplate jdbcTemplate) {
+	public CustomerJdbcRepository(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 

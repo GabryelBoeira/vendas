@@ -2,7 +2,7 @@ package br.com.gabryel.vendas;
 
 
 import br.com.gabryel.vendas.entity.Customer;
-import br.com.gabryel.vendas.repository.CustomerRepository;
+import br.com.gabryel.vendas.repository.otherVersions.CustomerJdbcRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,7 +17,7 @@ public class VendasApplication {
     }
 
     @Bean
-    public CommandLineRunner save(@Autowired CustomerRepository customerRepository) {
+    public CommandLineRunner save(@Autowired CustomerJdbcRepository customerRepository) {
         return args -> {
             String s1 = "nome do cliente: " + customerRepository.saveCustomer(new Customer("teste 1")).getName();
             System.out.println(s1);
@@ -31,7 +31,7 @@ public class VendasApplication {
     }
 
     @Bean
-    public CommandLineRunner findAll(@Autowired CustomerRepository customerRepository) {
+    public CommandLineRunner findAll(@Autowired CustomerJdbcRepository customerRepository) {
         return args -> {
             customerRepository.findAllCustomer().forEach(System.out::println);
         };
