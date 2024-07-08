@@ -1,28 +1,22 @@
 package br.com.gabryel.vendas.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Set;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CustomerDTO {
+@Schema(description = "Customer object that is sent in requests to the API")
+public record CustomerDTO (
+        @Schema(description = "The unique identifier of the customer")
+        Integer id,
 
-    private Integer id;
+        @NotBlank
+        @Size(max = 100)
+        String name,
 
-    @NotBlank
-    @Size(max = 100)
-    private String name;
-
-    private List purchaseOrders;
-
-}
+        List purchaseOrders
+) {}
