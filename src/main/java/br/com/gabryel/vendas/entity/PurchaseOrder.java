@@ -28,6 +28,9 @@ public class PurchaseOrder {
     @OneToMany(mappedBy = "purchaseOrder")
     private List<PurchaseOrderItem> items;
 
+    public PurchaseOrder() {
+    }
+
     public Integer getId() {
         return id;
     }

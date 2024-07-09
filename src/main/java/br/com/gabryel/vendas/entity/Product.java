@@ -1,14 +1,9 @@
 package br.com.gabryel.vendas.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "PRODUTO")
 public class Product {
@@ -23,6 +18,9 @@ public class Product {
 
     @Column(name = "VALOR")
     private BigDecimal value;
+
+    public Product() {
+    }
 
     public Integer getId() {
         return id;

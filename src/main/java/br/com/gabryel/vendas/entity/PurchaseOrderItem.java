@@ -1,14 +1,10 @@
 package br.com.gabryel.vendas.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 
 @Entity
 @Table(name = "PEDIDO_ITEM")
-@AllArgsConstructor
-@NoArgsConstructor
 public class PurchaseOrderItem {
 
     @Id
@@ -26,6 +22,9 @@ public class PurchaseOrderItem {
     @ManyToOne
     @JoinColumn(name = "PRODUTO_ID", referencedColumnName = "ID", nullable = false)
     private Product product;
+
+    public PurchaseOrderItem() {
+    }
 
     public Integer getId() {
         return id;
