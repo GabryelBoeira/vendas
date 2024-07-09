@@ -1,24 +1,14 @@
-CREATE TABLE CLIENTE (
-    ID INTEGER PRIMARY KEY AUTO_INCREMENT,
-    NOME VARCHAR(100)
-);
+--- ADD CLIENTES
+insert into `CLIENTE` (`NOME`) values ('João');
+insert into `CLIENTE` (`NOME`) values ('Maria');
+insert into `CLIENTE` (`NOME`) values ('Jose');
+insert into `CLIENTE` (`NOME`) values ('Carlos');
+insert into `CLIENTE` (`NOME`) values ('Pedro');
+insert into `CLIENTE` (`NOME`) values ('Will Smith');
 
-CREATE TABLE PRODUTO (
-    ID INTEGER PRIMARY KEY AUTO_INCREMENT,
-    DESCRICAO VARCHAR(100),
-    PRECO NUMERIC(20,2)
-);
-
-CREATE TABLE PEDIDO (
-    ID INTEGER PRIMARY KEY AUTO_INCREMENT,
-    CLIENTE_ID INTEGER REFERENCES CLIENTE (ID),
-    DATA_PEDIDO TIMESTAMP,
-    TOTAL NUMERIC(20,2)
-);
-
-CREATE TABLE ITEM_PEDIDO (
-    ID INTEGER PRIMARY KEY AUTO_INCREMENT,
-    PEDIDO_ID INTEGER REFERENCES PEDIDO (ID),
-    PRODUTO_ID INTEGER REFERENCES PRODUTO (ID),
-    QUANTIDADE INTEGER
-);
+--- ADD PRODUTOS
+insert into `PRODUTO` (`DESCRICAO`, `VALOR`) values ('Cerveja', 5.00);
+insert into `PRODUTO` (`DESCRICAO`, `VALOR`) values ('Agua', 2.00);
+insert into `PRODUTO` (`DESCRICAO`, `VALOR`) values ('Refrigerante', 3.00);
+insert into `PRODUTO` (`DESCRICAO`, `VALOR`) values ('Suco', 3.00);
+insert into `PRODUTO` (`DESCRICAO`, `VALOR`) values ('Cachorro Quente', 4.00);
