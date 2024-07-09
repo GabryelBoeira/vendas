@@ -18,6 +18,11 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
+    /**
+     * Method to create a CSV file containing product information.
+     *
+     * @return          a byte array representing the CSV file content
+     */
     public byte[] createCsvProductFile() {
         StringBuilder csvContent = new StringBuilder();
         csvContent.append(CSV_HEADER);
