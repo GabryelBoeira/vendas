@@ -5,7 +5,7 @@ import br.com.gabryel.vendas.repository.ProductJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.nio.charset.StandardCharsets;
 
 @Service
 public class ProductService {
@@ -30,10 +30,10 @@ public class ProductService {
         for (Product product : productRepository.findAll()) {
             csvContent.append(product.getId()).append(",")
                     .append(product.getDescription()).append(",")
-                    .append(product.getValue());
+                    .append(product.getValue()).append("\n");
         }
 
-        return csvContent.toString().getBytes();
+        return csvContent.toString().getBytes(StandardCharsets.UTF_8);
     }
 
 }

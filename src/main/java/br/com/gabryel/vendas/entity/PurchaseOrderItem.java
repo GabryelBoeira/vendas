@@ -1,10 +1,22 @@
 package br.com.gabryel.vendas.entity;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 
 @Entity
 @Table(name = "PEDIDO_ITEM")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class PurchaseOrderItem {
 
     @Id
@@ -15,11 +27,10 @@ public class PurchaseOrderItem {
     @Column(name = "QUANTIDADE")
     private Integer quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "PEDIDO_ID", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(targetEntity = PurchaseOrder.class, fetch = FetchType.EAGER)
     private PurchaseOrder purchaseOrder;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Product.class, cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
     @JoinColumn(name = "PRODUTO_ID", referencedColumnName = "ID", nullable = false)
     private Product product;
 

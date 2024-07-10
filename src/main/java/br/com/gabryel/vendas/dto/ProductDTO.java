@@ -11,17 +11,50 @@ import java.math.BigDecimal;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "Represents a product")
-public record ProductDTO(
+public class ProductDTO {
+
         @Schema(description = "The unique identifier of the product")
-        Integer id,
+        private Integer id;
 
         @Schema(description = "The description of the product")
         @NotBlank
         @Size(max = 100)
-        String description,
+        private String description;
 
         @Schema(description = "The value of the product")
         @NotNull
-        BigDecimal value
-) {
+        private BigDecimal value;
+
+        public ProductDTO() {
+        }
+
+        public ProductDTO(Integer id, String description, BigDecimal value) {
+                this.id = id;
+                this.description = description;
+                this.value = value;
+        }
+
+        public Integer getId() {
+                return id;
+        }
+
+        public void setId(Integer id) {
+                this.id = id;
+        }
+
+        public @NotBlank @Size(max = 100) String getDescription() {
+                return description;
+        }
+
+        public void setDescription(@NotBlank @Size(max = 100) String description) {
+                this.description = description;
+        }
+
+        public @NotNull BigDecimal getValue() {
+                return value;
+        }
+
+        public void setValue(@NotNull BigDecimal value) {
+                this.value = value;
+        }
 }

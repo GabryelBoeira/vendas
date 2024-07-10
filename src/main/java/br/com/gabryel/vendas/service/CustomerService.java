@@ -2,9 +2,11 @@ package br.com.gabryel.vendas.service;
 
 import br.com.gabryel.vendas.dto.CustomerDTO;
 import br.com.gabryel.vendas.entity.Customer;
-import br.com.gabryel.vendas.mapper.CustomerMapper;
-import br.com.gabryel.vendas.repository.otherVersions.CustomerJdbcRepository;
-import org.mapstruct.factory.Mappers;
+import br.com.gabryel.vendas.exception.BusinessException;
+import br.com.gabryel.vendas.repository.CustomerJpaRepository;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,20 +14,35 @@ import java.util.List;
 @Service
 public class CustomerService {
 
-    private CustomerJdbcRepository customerRepository;
-    private CustomerMapper customerMapper;
+    private final CustomerJpaRepository customerJpaRepository;
+    private final ModelMapper modelMapper;
 
-    public CustomerService(CustomerJdbcRepository customerRepository, CustomerMapper customerMapper) {
-        this.customerMapper = Mappers.getMapper(CustomerMapper.class);
-        this.customerRepository = customerRepository;
+    @Autowired
+    public CustomerService(CustomerJpaRepository customerJpaRepository, ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+        this.customerJpaRepository = customerJpaRepository;
     }
 
     public CustomerDTO saveCustomer() {
-        return customerMapper.toDTO(customerRepository.saveCustomer(new Customer("Gabryel")));
+        return modelMapper.map(customerJpaRepository.save(new Customer("Gabryel")), CustomerDTO.class);
     }
 
     public List<CustomerDTO> findAllCustomer() {
-        return customerMapper.toDTOs(customerRepository.findAllCustomer());
+        return  modelMapper.map(customerJpaRepository.findAll(), new TypeToken<List<CustomerDTO>>() {}.getType());
     }
 
+    public CustomerDTO findCustomerAndPurchaseOrderById(Integer id) {
+        return modelMapper.map(customerJpaRepository.findCustomerAndPurchaseOrdersById(id), CustomerDTO.class);
+    }
+
+    /**
+     * Find a customer by ID.
+     *
+     * @param  id  the ID of the customer to find
+     * @return     the customer entity if found
+     * @throws BusinessException if the customer is not found
+     */
+    public Customer findCustomerById(Integer id) throws BusinessException {
+        return customerJpaRepository.findById(id).orElseThrow(() -> new BusinessException("Customer not found"));
+    }
 }
