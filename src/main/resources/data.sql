@@ -1,10 +1,11 @@
---- ADD CLIENTES
-insert into `CLIENTE` (`ID`,`NOME`) values (100,'João');
-insert into `CLIENTE` (`NOME`) values ('Maria');
-insert into `CLIENTE` (`NOME`) values ('Jose');
-insert into `CLIENTE` (`NOME`) values ('Carlos');
-insert into `CLIENTE` (`NOME`) values ('Pedro');
-insert into `CLIENTE` (`NOME`) values ('Will Smith');
+--- ADD CLIENTES, CPFs gerados automaticamente https://www.4devs.com.br/gerador_de_cpf
+
+insert into `CLIENTE` (`ID`, `NOME`, `CPF`) values (100,'João', '37772382014');
+insert into `CLIENTE` (`NOME`, `CPF`) values ('Maria', '00837598087');
+insert into `CLIENTE` (`NOME`, `CPF`) values ('Jose', '06355528091');
+insert into `CLIENTE` (`NOME`, `CPF`) values ('Carlos', '80071319069');
+insert into `CLIENTE` (`NOME`, `CPF`) values ('Pedro', '81454522011');
+insert into `CLIENTE` (`NOME`, `CPF`) values ('Will Smith', '14915748014');
 
 --- ADD PRODUTOS
 insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (1, 'Cerveja', 5.00);

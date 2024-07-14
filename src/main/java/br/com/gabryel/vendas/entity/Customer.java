@@ -33,6 +33,9 @@ public class Customer implements Serializable {
     @Column(name = "NOME", length = 100)
     private String name;
 
+    @Column(name = "CPF", length = 11)
+    private String cpf;
+
     @OneToMany(targetEntity = PurchaseOrder.class, cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     @JoinColumn(name = "CLIENTE_ID", referencedColumnName = "ID", nullable = false)

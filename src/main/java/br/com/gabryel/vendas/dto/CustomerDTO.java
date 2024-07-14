@@ -22,6 +22,11 @@ public class CustomerDTO {
     @Size(max = 100)
     private String name;
 
+    @Schema(description = "The CPF of the customer")
+    @NotBlank
+    @Size(max = 11)
+    private String cpf;
+
     @Schema(description = "The purchase orders of the customer")
     private List<PurchaseOrderDTO> orders = new ArrayList<>();
 
@@ -56,5 +61,13 @@ public class CustomerDTO {
 
     public void setOrders(List<PurchaseOrderDTO> orders) {
         this.orders = orders;
+    }
+
+    public @NotBlank @Size(max = 11) String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(@NotBlank @Size(max = 11) String cpf) {
+        this.cpf = cpf;
     }
 }
