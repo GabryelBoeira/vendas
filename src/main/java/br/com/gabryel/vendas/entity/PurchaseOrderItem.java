@@ -24,7 +24,7 @@ public class PurchaseOrderItem {
     @Column(name = "ID")
     private Integer id;
 
-    @Column(name = "QUANTIDADE")
+    @Column(name = "QUANTIDADE", scale = 0, nullable = false)
     private Integer quantity;
 
     @ManyToOne(targetEntity = PurchaseOrder.class, fetch = FetchType.EAGER)

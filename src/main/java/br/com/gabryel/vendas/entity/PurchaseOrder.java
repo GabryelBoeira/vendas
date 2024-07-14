@@ -36,7 +36,7 @@ public class PurchaseOrder implements Serializable {
     @Column(name = "DATA_PEDIDO")
     private LocalDateTime dateOrder;
 
-    @Column(name = "VALOR_TOTAL")
+    @Column(name = "VALOR_TOTAL", scale = 2, precision = 20)
     private BigDecimal valueTotal;
 
     @ManyToOne(targetEntity = Customer.class, fetch = FetchType.EAGER)

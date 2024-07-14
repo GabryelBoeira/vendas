@@ -13,10 +13,10 @@ public class Product {
     @Column(name = "ID")
     private Integer id;
 
-    @Column(name = "DESCRICAO", length = 100)
+    @Column(name = "DESCRICAO", length = 100, nullable = false)
     private String description;
 
-    @Column(name = "VALOR")
+    @Column(name = "VALOR", scale = 2, precision = 20, nullable = false)
     private BigDecimal value;
 
     public Product() {

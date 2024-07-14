@@ -35,7 +35,7 @@ public class CustomerController {
     public ResponseEntity<Object> findCustomerById(@PathVariable Integer id) {
         try {
             return ResponseEntity.ok(customerService.findCustomerAndPurchaseOrderById(id));
-        } catch (Exception e) {
+        } catch (Exception e) { 
             return ResponseEntity.notFound().build();
         }
     }
