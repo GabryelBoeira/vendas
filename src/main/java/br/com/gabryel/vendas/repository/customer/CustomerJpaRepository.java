@@ -1,10 +1,12 @@
-package br.com.gabryel.vendas.repository;
+package br.com.gabryel.vendas.repository.customer;
 
 import br.com.gabryel.vendas.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public interface CustomerJpaRepository extends JpaRepository<Customer, Integer> {
@@ -19,6 +21,6 @@ public interface CustomerJpaRepository extends JpaRepository<Customer, Integer> 
      * @return     the customer entity if found, null otherwise
      */
     @Query("SELECT c FROM Customer c left join fetch c.orders where c.id = :id")
-    Customer findCustomerAndPurchaseOrdersById(@Param("id") Integer id);
+    Optional<Customer> findCustomerAndPurchaseOrdersById(@Param("id") Integer id);
 
 }
