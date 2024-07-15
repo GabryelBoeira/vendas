@@ -12,7 +12,7 @@ insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (1, 'Cerveja', 5.00);
 insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (2, 'Agua', 2.00);
 insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (3, 'Refrigerante', 3.00);
 insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (4, 'Suco', 3.00);
-insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (5, 'Cachorro Quente', 4.00);
+insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (5, 'Cachorro-Quente', 4.00);
 
 
 ---ADD pedidos
