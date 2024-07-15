@@ -100,10 +100,20 @@ public class ProductController {
     }
 
     @PutMapping
-    @Operation(summary = "Atualiza os dados do produto")
+    @Operation(summary = "Atualizar os dados do produto")
     public ResponseEntity<Object> updateProduct(@RequestBody @Valid ProductDTO product) {
         try {
             return ResponseEntity.ok(productService.updateProduct(product));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Atualizar os dados do produto, outra forma de atualizar")
+    public ResponseEntity<Object> updateProduct(@PathVariable Integer id, @RequestBody @Valid ProductDTO product) {
+        try {
+            return ResponseEntity.ok(productService.updateProduct(id, product));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

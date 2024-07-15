@@ -42,7 +42,7 @@ public class CustomerController {
     public ResponseEntity<Object> findCustomerById(@PathVariable Integer id) {
         try {
             return ResponseEntity.ok(customerService.findCustomerById(id));
-        } catch (Exception e) { 
+        } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -71,7 +71,5 @@ public class CustomerController {
     public ResponseEntity<Object> deleteCustomer(@PathVariable Integer id) {
         return ResponseEntity.ok().build();
     }
-
-
 
 }

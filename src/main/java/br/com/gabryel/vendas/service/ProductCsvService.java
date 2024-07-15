@@ -4,7 +4,6 @@ import br.com.gabryel.vendas.entity.Product;
 import br.com.gabryel.vendas.exception.BusinessException;
 import com.opencsv.CSVWriter;
 import jakarta.servlet.ServletOutputStream;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 

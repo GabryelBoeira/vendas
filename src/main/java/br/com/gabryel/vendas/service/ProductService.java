@@ -80,6 +80,12 @@ public class ProductService {
      * @param product the product to be updated
      * @return the updated product
      */
+
+    public Object updateProduct(Integer id, ProductDTO product) {
+        product.setId(id);
+        return saveProduct(product);
+    }
+
     public Object updateProduct(ProductDTO product) {
         return saveProduct(product);
     }
