@@ -11,7 +11,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,11 +36,6 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/")
-    public String namePage() {
-        return "Produto";
-    }
-
     @GetMapping("/extract/csv")
     @Operation(summary = "Lista todos os produtos atualmente em estoque em formato CSV")
     public ResponseEntity<Object> extractProductsListCsv() {
@@ -58,7 +52,7 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/extract/csv/zip")
+    @GetMapping("/extract/csv/zip")
     @Operation(summary = "Lista todos os produtos atualmente em estoque em formato CSV em um arquivo ZIP")
     public ResponseEntity<StreamingResponseBody> extractProductsListCsvZip(HttpServletResponse response) throws IOException {
         HttpHeaders headers = new HttpHeaders();

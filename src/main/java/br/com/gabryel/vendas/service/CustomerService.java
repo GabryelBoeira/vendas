@@ -32,17 +32,18 @@ public class CustomerService {
     /**
      * Retrieves all customers from the database and maps them to a list of CustomerDTO objects.
      *
-     * @return          a list of CustomerDTO objects representing all customers in the database
+     * @return a list of CustomerDTO objects representing all customers in the database
      */
     public List<CustomerDTO> findAllCustomer() {
-        return  modelMapper.map(customerJpaRepository.findAll(), new TypeToken<List<CustomerDTO>>() {}.getType());
+        return modelMapper.map(customerJpaRepository.findAll(), new TypeToken<List<CustomerDTO>>() {
+        }.getType());
     }
 
     /**
      * Find a customer by ID.
      *
-     * @param  id  the ID of the customer to find
-     * @return     the customer entity if found
+     * @param id the ID of the customer to find
+     * @return the customer entity if found
      * @throws BusinessException if the customer is not found
      */
     public CustomerDTO findCustomerById(Integer id) throws BusinessException {
@@ -54,11 +55,12 @@ public class CustomerService {
     /**
      * Find a customer by name.
      *
-     * @param  name  the name of the customer to find
-     * @return     the customer entity if found
+     * @param name the name of the customer to find
+     * @return the customer entity if found
      */
     public CustomerDTO findCustomerByName(String name) {
-        return modelMapper.map(customerJpaRepository.findByName(name), CustomerDTO.class);
+        Customer customer = customerJpaRepository.findByName(name);
+        return customer == null ? null : modelMapper.map(customer, CustomerDTO.class);
     }
 
     public CustomerDTO updateCustomer(CustomerDTO customer) {
@@ -68,8 +70,8 @@ public class CustomerService {
     /**
      * Find customers by parameters.
      *
-     * @param  params  the parameters to search for customers
-     * @return         a list of customers that match the parameters
+     * @param params the parameters to search for customers
+     * @return a list of customers that match the parameters
      */
     public List<CustomerDTO> findCustomerByParams(CustomerDTO params) {
         ExampleMatcher matcher = ExampleMatcher
@@ -79,8 +81,8 @@ public class CustomerService {
 
         Example example = Example.of(modelMapper.map(params, Customer.class), matcher);
 
-        return modelMapper.map(customerJpaRepository.findAll(example), new TypeToken<List<CustomerDTO>>() {}.getType());
-
+        return modelMapper.map(customerJpaRepository.findAll(example), new TypeToken<List<CustomerDTO>>() {
+        }.getType());
     }
 
     private Customer saveCustomer(CustomerDTO customer) {
