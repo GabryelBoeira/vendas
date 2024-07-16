@@ -34,18 +34,14 @@ public class PurchaseOrderController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Retorna um pedido pelo id")
-    public ResponseEntity<Object> getPurchaseOrder(@PathVariable Integer id) {
+    public ResponseEntity<Object> getPurchaseOrder(@PathVariable Integer id) throws BusinessException {
         return ResponseEntity.ok(purchaseOrderService.getPurchaseOrder(id));
     }
 
     @PostMapping
     @Operation(summary = "Cria um novo pedido")
-    public ResponseEntity<Object> savePurchaseOrder(@RequestBody @Valid RequestPurchaseOrderDTO purchaseOrderDTO) {
-        try {
-            return ResponseEntity.ok(purchaseOrderService.savePurchaseOrderDTO(purchaseOrderDTO));
-        } catch (BusinessException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+    public ResponseEntity<Object> savePurchaseOrder(@RequestBody @Valid RequestPurchaseOrderDTO purchaseOrderDTO) throws BusinessException {
+        return ResponseEntity.ok(purchaseOrderService.savePurchaseOrderDTO(purchaseOrderDTO));
     }
 
     @DeleteMapping("/{id}")
@@ -57,12 +53,8 @@ public class PurchaseOrderController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Atualizar um pedido")
-    public ResponseEntity<Object> updatePurchaseOrder(@PathVariable Integer id, @RequestBody @Valid RequestPurchaseOrderDTO purchaseOrderDTO) {
-        try {
-            return ResponseEntity.ok(purchaseOrderService.updatePurchaseOrder(id, purchaseOrderDTO));
-        } catch (BusinessException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+    public ResponseEntity<Object> updatePurchaseOrder(@PathVariable Integer id, @RequestBody @Valid RequestPurchaseOrderDTO purchaseOrderDTO) throws BusinessException {
+        return ResponseEntity.ok(purchaseOrderService.updatePurchaseOrder(id, purchaseOrderDTO));
     }
 
     @PostMapping("/find")

@@ -1,6 +1,7 @@
 package br.com.gabryel.vendas.controller;
 
 import br.com.gabryel.vendas.dto.CustomerDTO;
+import br.com.gabryel.vendas.exception.BusinessException;
 import br.com.gabryel.vendas.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -39,12 +40,8 @@ public class CustomerController {
 
     @Operation(summary = "Busca o cliente pelo ID")
     @GetMapping("/{id}")
-    public ResponseEntity<Object> findCustomerById(@PathVariable Integer id) {
-        try {
-            return ResponseEntity.ok(customerService.findCustomerDTOById(id));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Object> findCustomerById(@PathVariable Integer id) throws BusinessException {
+        return ResponseEntity.ok(customerService.findCustomerDTOById(id));
     }
 
     @Operation(summary = "Busca o cliente pelo nome")

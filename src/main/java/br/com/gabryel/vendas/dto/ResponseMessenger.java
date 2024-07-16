@@ -1,7 +1,8 @@
 package br.com.gabryel.vendas.dto;
 
+import java.util.List;
+
 public record ResponseMessenger(
-        String code,
-        String message
+        List<String> message
 ) {
 }

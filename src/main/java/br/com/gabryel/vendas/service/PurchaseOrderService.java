@@ -62,8 +62,8 @@ public class PurchaseOrderService {
      * @param id the unique identifier of the purchase order
      * @return the mapped PurchaseOrderDTO if found, otherwise null
      */
-    public ResponsePurchaseOrderDTO getPurchaseOrder(Integer id) {
-        PurchaseOrder purchaseOrder = purchaseOrderRepository.findById(id).orElse(null);
+    public ResponsePurchaseOrderDTO getPurchaseOrder(Integer id) throws BusinessException {
+        PurchaseOrder purchaseOrder = purchaseOrderRepository.findById(id).orElseThrow(() -> new BusinessException("Purchase order not found"));
         return purchaseOrder == null ? null : modelMapper.map(purchaseOrder, ResponsePurchaseOrderDTO.class);
     }
 
