@@ -1,6 +1,10 @@
 package br.com.gabryel.vendas.dto;
 
+import br.com.gabryel.vendas.util.CustomerListDeserializer;
+import br.com.gabryel.vendas.util.CustomerListSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -27,12 +31,14 @@ public class CustomerDTO {
     private String cpf;
 
     @Schema(description = "The purchase orders of the customer")
-    private List<PurchaseOrderDTO> orders = new ArrayList<>();
+    @JsonSerialize(using = CustomerListSerializer.class)
+    @JsonDeserialize(using = CustomerListDeserializer.class)
+    private List<ResponsePurchaseOrderDTO> orders = new ArrayList<>();
 
     public CustomerDTO() {
     }
 
-    public CustomerDTO(Integer id, String name, List<PurchaseOrderDTO> orders) {
+    public CustomerDTO(Integer id, String name, List<ResponsePurchaseOrderDTO> orders) {
         this.id = id;
         this.name = name;
         this.orders = orders;
@@ -54,11 +60,11 @@ public class CustomerDTO {
         this.name = name;
     }
 
-    public List<PurchaseOrderDTO> getOrders() {
+    public List<ResponsePurchaseOrderDTO> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<PurchaseOrderDTO> orders) {
+    public void setOrders(List<ResponsePurchaseOrderDTO> orders) {
         this.orders = orders;
     }
 

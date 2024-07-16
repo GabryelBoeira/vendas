@@ -1,8 +1,8 @@
 package br.com.gabryel.vendas.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,11 +13,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import java.io.Serializable;
+
 
 @Entity
 @Table(name = "PEDIDO_ITEM")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
-public class PurchaseOrderItem {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
+public class PurchaseOrderItem implements Serializable {
+
+    private static final long serialVersionUID = -5679192844602765680L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +32,21 @@ public class PurchaseOrderItem {
     @Column(name = "QUANTIDADE", scale = 0, nullable = false)
     private Integer quantity;
 
-    @ManyToOne(targetEntity = PurchaseOrder.class, fetch = FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "PEDIDO_ID", referencedColumnName = "ID")
     private PurchaseOrder purchaseOrder;
 
-    @ManyToOne(targetEntity = Product.class, cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
-    @JoinColumn(name = "PRODUTO_ID", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "PRODUTO_ID", referencedColumnName = "ID")
     private Product product;
 
     public PurchaseOrderItem() {
+    }
+
+    public PurchaseOrderItem(PurchaseOrder purchaseOrder, Integer quantity, Product product) {
+        this.purchaseOrder = purchaseOrder;
+        this.quantity = quantity;
+        this.product = product;
     }
 
     public Integer getId() {

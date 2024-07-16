@@ -1,5 +1,9 @@
 package br.com.gabryel.vendas.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,26 +11,23 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "CLIENTE")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = -4912194954638358522L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     private Integer id;
 
@@ -36,9 +37,7 @@ public class Customer implements Serializable {
     @Column(name = "CPF", length = 11)
     private String cpf;
 
-    @OneToMany(targetEntity = PurchaseOrder.class, cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @Fetch(value = FetchMode.SUBSELECT)
-    @JoinColumn(name = "CLIENTE_ID", referencedColumnName = "ID", nullable = false)
+    @OneToMany(mappedBy = "customer", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<PurchaseOrder> orders = new ArrayList<>();
 
     public Customer() {}
@@ -50,6 +49,10 @@ public class Customer implements Serializable {
     public Customer(Integer id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Customer(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {
@@ -68,12 +71,21 @@ public class Customer implements Serializable {
         this.name = name;
     }
 
+    @JsonManagedReference
     public List<PurchaseOrder> getOrders() {
         return orders;
     }
 
     public void setOrders(List<PurchaseOrder> orders) {
         this.orders = orders;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     @Override

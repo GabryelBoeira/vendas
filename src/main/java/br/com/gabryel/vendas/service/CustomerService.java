@@ -43,13 +43,24 @@ public class CustomerService {
      * Find a customer by ID.
      *
      * @param id the ID of the customer to find
-     * @return the customer entity if found
+     * @return the customer DTO if found
      * @throws BusinessException if the customer is not found
      */
-    public CustomerDTO findCustomerById(Integer id) throws BusinessException {
+    public CustomerDTO findCustomerDTOById(Integer id) throws BusinessException {
+        Customer customer = customerJpaRepository.findCustomerAndPurchaseOrdersById(id).orElseThrow(() -> new BusinessException("Customer not found"));
+        return modelMapper.map(customer, CustomerDTO.class);
+    }
+
+    /**
+     * Find a customer by ID.
+     *
+     * @param id the ID of the customer to find
+     * @return the customer entity if found
+     */
+    public Customer findCustomerById(Integer id) throws BusinessException {
         Customer customer = customerJpaRepository.findCustomerAndPurchaseOrdersById(id).orElseThrow(() -> new BusinessException("Customer not found"));
         customer.setOrders(null);
-        return modelMapper.map(customer, CustomerDTO.class);
+        return customer;
     }
 
     /**

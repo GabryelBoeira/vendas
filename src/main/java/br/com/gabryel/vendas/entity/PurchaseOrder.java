@@ -1,5 +1,11 @@
 package br.com.gabryel.vendas.entity;
 
+import br.com.gabryel.vendas.dto.RequestPurchaseOrderDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,19 +17,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "PEDIDO")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
 public class PurchaseOrder implements Serializable {
 
     private static final long serialVersionUID = -5679192844602765680L;
@@ -39,15 +43,21 @@ public class PurchaseOrder implements Serializable {
     @Column(name = "VALOR_TOTAL", scale = 2, precision = 20)
     private BigDecimal valueTotal;
 
-    @ManyToOne(targetEntity = Customer.class, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "CLIENTE_ID", referencedColumnName = "ID")
     private Customer customer;
 
-    @OneToMany(targetEntity = PurchaseOrderItem.class, cascade = CascadeType.REFRESH,fetch = FetchType.EAGER, orphanRemoval = true)
-    @Fetch(value = FetchMode.SUBSELECT)
-    @JoinColumn(name = "PEDIDO_ID", referencedColumnName = "ID", nullable = false)
+    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<PurchaseOrderItem> items = new ArrayList<>();
 
     public PurchaseOrder() {
+    }
+
+    public PurchaseOrder(Integer id, RequestPurchaseOrderDTO requestPurchaseOrderDTO) {
+        if (id != null) this.id = id;
+        this.dateOrder = LocalDateTime.now();
+        this.valueTotal = requestPurchaseOrderDTO.valueTotal();
     }
 
     public Integer getId() {
@@ -58,6 +68,7 @@ public class PurchaseOrder implements Serializable {
         this.id = id;
     }
 
+    @JsonBackReference
     public Customer getCustomer() {
         return customer;
     }

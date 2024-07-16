@@ -48,9 +48,13 @@ public class ProductService {
      * @param id the ID of the product to find
      * @return the product DTO corresponding to the ID
      */
-    public ProductDTO findProductById(Integer id) throws BusinessException {
+    public ProductDTO findProductDTOById(Integer id) throws BusinessException {
         Product product = productRepository.findById(id).orElseThrow(() -> new BusinessException("Product not found"));
         return modelMapper.map(product, ProductDTO.class);
+    }
+
+    public Product findProductById(Integer id) {
+        return productRepository.findById(id).orElse(null);
     }
 
     /**
