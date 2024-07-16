@@ -41,7 +41,7 @@ public class CustomerController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> findCustomerById(@PathVariable Integer id) {
         try {
-            return ResponseEntity.ok(customerService.findCustomerById(id));
+            return ResponseEntity.ok(customerService.findCustomerDTOById(id));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

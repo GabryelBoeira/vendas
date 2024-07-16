@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "The purchase order item DTO")
-public class PurchaseOrderItemDTO {
+public class ResponsePurchaseOrderItemDTO {
 
     @Schema(description = "The unique identifier of the purchase order item")
     private Integer id;
@@ -20,10 +20,10 @@ public class PurchaseOrderItemDTO {
     @Schema(description = "The purchase order of the purchase order item")
     private PurchaseOrder purchaseOrder;
 
-    public PurchaseOrderItemDTO() {
+    public ResponsePurchaseOrderItemDTO() {
     }
 
-    public PurchaseOrderItemDTO(Integer id, Integer quantity, ProductDTO product, PurchaseOrder purchaseOrder) {
+    public ResponsePurchaseOrderItemDTO(Integer id, Integer quantity, ProductDTO product, PurchaseOrder purchaseOrder) {
         this.id = id;
         this.quantity = quantity;
         this.product = product;

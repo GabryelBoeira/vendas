@@ -70,7 +70,7 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> findProductById(@PathVariable Integer id) {
         try {
-            return ResponseEntity.ok(productService.findProductById(id));
+            return ResponseEntity.ok(productService.findProductDTOById(id));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

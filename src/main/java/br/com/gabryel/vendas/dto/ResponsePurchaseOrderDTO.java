@@ -7,12 +7,12 @@ import jakarta.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "Represents a purchase order")
-public class PurchaseOrderDTO {
+public class ResponsePurchaseOrderDTO {
+
     @Schema(description = "The unique identifier of the purchase order")
     private Integer id;
 
@@ -27,9 +27,9 @@ public class PurchaseOrderDTO {
     private BigDecimal valueTotal;
 
     @Schema(description = "The items of the order")
-    private List<PurchaseOrderItemDTO> items;
+    private List<ResponsePurchaseOrderItemDTO> items;
 
-    public PurchaseOrderDTO() {
+    public ResponsePurchaseOrderDTO() {
     }
 
     public Integer getId() {
@@ -64,11 +64,11 @@ public class PurchaseOrderDTO {
         this.valueTotal = valueTotal;
     }
 
-    public List<PurchaseOrderItemDTO> getItems() {
+    public List<ResponsePurchaseOrderItemDTO> getItems() {
         return items;
     }
 
-    public void setItems(List<PurchaseOrderItemDTO> items) {
+    public void setItems(List<ResponsePurchaseOrderItemDTO> items) {
         this.items = items;
     }
 }
