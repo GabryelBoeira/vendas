@@ -27,6 +27,8 @@ public class ResponsePurchaseOrderDTO {
     @Schema(description = "The total value of the order")
     private BigDecimal valueTotal;
 
+    private String status;
+
     @Schema(description = "The items of the order")
     @JsonIgnoreProperties("purchaseOrder")
     private List<ResponsePurchaseOrderItemDTO> items;
@@ -73,4 +75,13 @@ public class ResponsePurchaseOrderDTO {
     public void setItems(List<ResponsePurchaseOrderItemDTO> items) {
         this.items = items;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }

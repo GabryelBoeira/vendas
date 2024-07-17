@@ -16,9 +16,9 @@ insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (5, 'Cachorro-Quente',
 
 
 ---ADD pedidos
-insert into `PEDIDO` (`ID`, `CLIENTE_ID`, `VALOR_TOTAL`) values (DEFAULT, 1, 150.00);
-insert into `PEDIDO` (`ID`, `CLIENTE_ID`, `VALOR_TOTAL`) values (DEFAULT, 1, 100.00);
-insert into `PEDIDO` (`ID`, `CLIENTE_ID`, `VALOR_TOTAL`) values (DEFAULT, 1, 100.00);
+insert into `PEDIDO` (`ID`, `CLIENTE_ID`, `VALOR_TOTAL`, `DATA_PEDIDO`, `STATUS`) values (DEFAULT, 1, 150.00, '2020-01-01 00:00:00.000000', 'DONE');
+insert into `PEDIDO` (`ID`, `CLIENTE_ID`, `VALOR_TOTAL`, `DATA_PEDIDO`, `STATUS`) values (DEFAULT, 1, 100.00, '2020-01-01 00:00:00.000000', 'DONE');
+insert into `PEDIDO` (`ID`, `CLIENTE_ID`, `VALOR_TOTAL`, `DATA_PEDIDO`, `STATUS`) values (DEFAULT, 1, 100.00, '2020-01-01 00:00:00.000000', 'DONE');
 
 ---ADD item pedido
 insert into `PEDIDO_ITEM` (`ID`, `PEDIDO_ID`, `PRODUTO_ID`, `QUANTIDADE`) values (DEFAULT, 1, 1, 2);

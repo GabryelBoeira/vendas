@@ -1,5 +1,6 @@
 package br.com.gabryel.vendas.service;
 
+import br.com.gabryel.vendas.config.enums.OrderStatus;
 import br.com.gabryel.vendas.dto.ProductDTO;
 import br.com.gabryel.vendas.dto.RequestPurchaseOrderDTO;
 import br.com.gabryel.vendas.dto.RequestPurchaseOrderItemDTO;
@@ -47,6 +48,7 @@ public class PurchaseOrderService {
     @Transactional
     public PurchaseOrder savePurchaseOrderDTO(RequestPurchaseOrderDTO purchaseOrderDTO) throws BusinessException {
         PurchaseOrder purchaseOrder = new PurchaseOrder(null, purchaseOrderDTO);
+        purchaseOrder.setStatus(OrderStatus.DONE);
         purchaseOrder.setCustomer(customerService.findCustomerById(purchaseOrderDTO.customerId()));
         purchaseOrderRepository.save(purchaseOrder);
 
@@ -72,8 +74,10 @@ public class PurchaseOrderService {
      *
      * @param id the ID of the purchase order to be deleted
      */
-    public void deletePurchaseOrder(Integer id) {
-        purchaseOrderRepository.deleteById(id);
+    public void deletePurchaseOrder(Integer id) throws BusinessException {
+        PurchaseOrder purchaseOrder = purchaseOrderRepository.findById(id).orElseThrow(() -> new BusinessException("Purchase order not found"));
+        purchaseOrder.setStatus(OrderStatus.CANCELED);
+        purchaseOrderRepository.save(purchaseOrder);
     }
 
     /**

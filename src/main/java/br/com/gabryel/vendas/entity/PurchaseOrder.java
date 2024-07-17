@@ -1,5 +1,6 @@
 package br.com.gabryel.vendas.entity;
 
+import br.com.gabryel.vendas.config.enums.OrderStatus;
 import br.com.gabryel.vendas.dto.RequestPurchaseOrderDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -9,6 +10,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -50,6 +53,10 @@ public class PurchaseOrder implements Serializable {
 
     @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<PurchaseOrderItem> items = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS")
+    private OrderStatus status;
 
     public PurchaseOrder() {
     }
@@ -99,6 +106,14 @@ public class PurchaseOrder implements Serializable {
 
     public void setItems(List<PurchaseOrderItem> items) {
         this.items = items;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
 }
