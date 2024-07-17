@@ -17,6 +17,7 @@ public class ResponsePurchaseOrderDTO {
     private Integer id;
 
     @Schema(description = "The customer of the purchase order")
+    @JsonIgnoreProperties("orders")
     private CustomerDTO customer;
 
     @Schema(description = "The date when the order was placed")
@@ -27,6 +28,7 @@ public class ResponsePurchaseOrderDTO {
     private BigDecimal valueTotal;
 
     @Schema(description = "The items of the order")
+    @JsonIgnoreProperties("purchaseOrder")
     private List<ResponsePurchaseOrderItemDTO> items;
 
     public ResponsePurchaseOrderDTO() {

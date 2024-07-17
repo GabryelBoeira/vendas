@@ -23,13 +23,6 @@ public class ResponsePurchaseOrderItemDTO {
     public ResponsePurchaseOrderItemDTO() {
     }
 
-    public ResponsePurchaseOrderItemDTO(Integer id, Integer quantity, ProductDTO product, PurchaseOrder purchaseOrder) {
-        this.id = id;
-        this.quantity = quantity;
-        this.product = product;
-        this.purchaseOrder = purchaseOrder;
-    }
-
     public Integer getId() {
         return id;
     }
