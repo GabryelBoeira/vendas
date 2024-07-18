@@ -115,10 +115,31 @@ public class PurchaseOrderService {
         }.getType());
     }
 
+    /**
+     * Updates the status of a purchase order.
+     *
+     * @param id   the ID of the purchase order
+     * @param status the new status
+     * @throws BusinessException if the purchase order is not found
+     */
+    public void updatePurchaseOrderStatus(Integer id, OrderStatus status) throws BusinessException {
+        PurchaseOrder purchaseOrder = purchaseOrderRepository.findById(id).orElseThrow(() -> new BusinessException("Purchase order not found"));
+        purchaseOrder.setStatus(status);
+        purchaseOrderRepository.save(purchaseOrder);
+    }
+
+    /**
+     * Loads purchase order items from a list of DTO objects.
+     *
+     * @param order the purchase order
+     * @param items the list of DTO objects
+     * @return the list of purchase order items
+     */
     private List<PurchaseOrderItem> loadOrderItems(PurchaseOrder order, List<RequestPurchaseOrderItemDTO> items) {
         return items
                 .stream()
                 .map(item -> new PurchaseOrderItem(order, item.quantity(), productService.findProductById(item.productId())))
                 .toList();
     }
+
 }
