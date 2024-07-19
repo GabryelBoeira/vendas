@@ -4,11 +4,14 @@ import br.com.gabryel.vendas.exception.BusinessException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestControllerAdvice
 public class ApplicationControllerAdvice {
@@ -29,10 +32,14 @@ public class ApplicationControllerAdvice {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<List<String>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_ACCEPTABLE)
-                .body(ex.getBindingResult().getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList());
+    public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            errors.put(((FieldError) error).getField(), error.getDefaultMessage());
+        });
+
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(errors);
     }
 
 }

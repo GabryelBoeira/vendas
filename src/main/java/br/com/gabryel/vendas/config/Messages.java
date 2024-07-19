@@ -22,12 +22,11 @@ public class Messages {
         return new SessionLocaleResolver();
     }
 
-    @Bean
+    @Bean(name="messageSource")
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("label");
+        messageSource.setBasename("messages");
         messageSource.setDefaultEncoding("UTF-8");
-        messageSource.setUseCodeAsDefaultMessage(true);
         return messageSource;
     }
 
@@ -45,7 +44,7 @@ public class Messages {
      * @return           the retrieved message
      */
     public String getMessage(String message) {
-        return getMessage(message, new Object());
+        return getMessage(message, null);
     }
 
     /**
@@ -56,7 +55,7 @@ public class Messages {
      * @return             the retrieved message, or an empty string if the message code is blank or the message source is not found
      */
     public String getMessage(String message, Object... args) {
-        if (StringUtils.isNotBlank(defaultLocale)) defaultLocale = "pt_BR";
+        if (StringUtils.isNotBlank(defaultLocale)) defaultLocale = "pt-BR";
 
         if (StringUtils.isNotBlank(message)) {
             return messageSource().getMessage(message, args, Locale.forLanguageTag(defaultLocale));

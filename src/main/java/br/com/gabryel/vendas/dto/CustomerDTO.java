@@ -22,13 +22,13 @@ public class CustomerDTO {
     private Integer id;
 
     @Schema(description = "The name of the customer")
-    @NotBlank(message = "Name is mandatory")
-    @Size(max = 100, message = "Name must be less than 100 characters")
+    @NotBlank
+    @Size(max = 100)
     private String name;
 
     @Schema(description = "The CPF of the customer")
-    @NotBlank(message = "CPF is mandatory")
-    @CPF(message = "Invalid CPF")
+    @NotBlank
+    @CPF
     private String cpf;
 
     @Schema(description = "The purchase orders of the customer")
