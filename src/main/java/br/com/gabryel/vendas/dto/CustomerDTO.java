@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +22,13 @@ public class CustomerDTO {
     private Integer id;
 
     @Schema(description = "The name of the customer")
-    @NotBlank
-    @Size(max = 100)
+    @NotBlank(message = "Name is mandatory")
+    @Size(max = 100, message = "Name must be less than 100 characters")
     private String name;
 
     @Schema(description = "The CPF of the customer")
-    @NotBlank
-    @Size(max = 11)
+    @NotBlank(message = "CPF is mandatory")
+    @CPF(message = "Invalid CPF")
     private String cpf;
 
     @Schema(description = "The purchase orders of the customer")
