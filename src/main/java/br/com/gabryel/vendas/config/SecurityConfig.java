@@ -24,7 +24,6 @@ public class SecurityConfig {
     /**
      * this class is used to configure security
      * docs reference Spring Boot Security 5.7.X or higher: https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter
-     *
      */
 
     @Bean
@@ -45,6 +44,10 @@ public class SecurityConfig {
                                 .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                                 .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                                 .requestMatchers("/login/**").permitAll()
+                                .requestMatchers("/h2-console/**").permitAll()
+                                .requestMatchers("/customer/**").authenticated()
+                                .requestMatchers("/product/**").authenticated()
+                                .requestMatchers("/purchaseOrder/**").authenticated()
                                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
