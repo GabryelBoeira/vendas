@@ -1,18 +1,18 @@
 --- ADD CLIENTES, CPFs gerados automaticamente https://www.4devs.com.br/gerador_de_cpf
 
-insert into `CLIENTE` (`ID`, `NOME`, `CPF`) values (1, 'João', '37772382014');
-insert into `CLIENTE` (`ID`, `NOME`, `CPF`) values (2, 'Maria', '00837598087');
-insert into `CLIENTE` (`ID`, `NOME`, `CPF`) values (3, 'Jose', '06355528091');
-insert into `CLIENTE` (`ID`, `NOME`, `CPF`) values (4, 'Carlos', '80071319069');
-insert into `CLIENTE` (`ID`, `NOME`, `CPF`) values (5, 'Pedro', '81454522011');
-insert into `CLIENTE` (`ID`, `NOME`, `CPF`) values (6, 'Will Smith', '14915748014');
+insert into `CLIENTE` (`ID`, `NOME`, `CPF`) values (DEFAULT, 'João', '37772382014');
+insert into `CLIENTE` (`ID`, `NOME`, `CPF`) values (DEFAULT, 'Maria', '00837598087');
+insert into `CLIENTE` (`ID`, `NOME`, `CPF`) values (DEFAULT, 'Jose', '06355528091');
+insert into `CLIENTE` (`ID`, `NOME`, `CPF`) values (DEFAULT, 'Carlos', '80071319069');
+insert into `CLIENTE` (`ID`, `NOME`, `CPF`) values (DEFAULT, 'Pedro', '81454522011');
+insert into `CLIENTE` (`ID`, `NOME`, `CPF`) values (DEFAULT, 'Will Smith', '14915748014');
 
 --- ADD PRODUTOS
-insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (1, 'Cerveja', 5.00);
-insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (2, 'Agua', 2.00);
-insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (3, 'Refrigerante', 3.00);
-insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (4, 'Suco', 3.00);
-insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (5, 'Cachorro-Quente', 4.00);
+insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (DEFAULT, 'Cerveja', 5.00);
+insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (DEFAULT, 'Agua', 2.00);
+insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (DEFAULT, 'Refrigerante', 3.00);
+insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (DEFAULT, 'Suco', 3.00);
+insert into `PRODUTO` (`ID`, `DESCRICAO`, `VALOR`) values (DEFAULT, 'Cachorro-Quente', 4.00);
 
 
 ---ADD pedidos
