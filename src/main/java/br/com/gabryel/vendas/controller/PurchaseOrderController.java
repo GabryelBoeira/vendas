@@ -1,6 +1,6 @@
 package br.com.gabryel.vendas.controller;
 
-import br.com.gabryel.vendas.config.enums.OrderStatus;
+import br.com.gabryel.vendas.enums.OrderStatus;
 import br.com.gabryel.vendas.dto.RequestPurchaseOrderDTO;
 import br.com.gabryel.vendas.dto.ResponsePurchaseOrderDTO;
 import br.com.gabryel.vendas.exception.BusinessException;
