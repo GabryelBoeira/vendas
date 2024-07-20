@@ -3,6 +3,7 @@ package br.com.gabryel.vendas.controller;
 import br.com.gabryel.vendas.dto.ProductDTO;
 import br.com.gabryel.vendas.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -26,6 +27,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/product")
+@SecurityRequirement(name = "basicAuth")
 @Tag(name = "Produto", description = "Gerenciar/Manipular dados de produtos")
 public class ProductController {
 

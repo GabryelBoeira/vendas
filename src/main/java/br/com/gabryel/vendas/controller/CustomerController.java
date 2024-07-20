@@ -4,6 +4,7 @@ import br.com.gabryel.vendas.dto.CustomerDTO;
 import br.com.gabryel.vendas.exception.BusinessException;
 import br.com.gabryel.vendas.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/customer")
+@SecurityRequirement(name = "basicAuth")
 @Tag(name = "Cliente", description = "Gerenciar/Manipular dados de clientes")
 public class CustomerController {
 

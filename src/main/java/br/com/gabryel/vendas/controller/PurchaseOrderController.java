@@ -6,6 +6,7 @@ import br.com.gabryel.vendas.dto.ResponsePurchaseOrderDTO;
 import br.com.gabryel.vendas.exception.BusinessException;
 import br.com.gabryel.vendas.service.PurchaseOrderService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/purchaseOrder")
+@SecurityRequirement(name = "basicAuth")
 @Tag(name = "Pedidos", description = "Gerenciamento de pedidos")
 public class PurchaseOrderController {
 

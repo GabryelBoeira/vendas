@@ -43,13 +43,14 @@ public class SecurityConfig {
                         authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                                 .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                                 .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("/product/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/customer/**").authenticated()
+                                .requestMatchers("/purchaseOrder/**").authenticated()
                                 .requestMatchers("/login/**").permitAll()
                                 .requestMatchers("/h2-console/**").permitAll()
-                                .requestMatchers("/customer/**").authenticated()
-                                .requestMatchers("/product/**").authenticated()
-                                .requestMatchers("/purchaseOrder/**").authenticated()
                                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
+                .formLogin(Customizer.withDefaults())
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
