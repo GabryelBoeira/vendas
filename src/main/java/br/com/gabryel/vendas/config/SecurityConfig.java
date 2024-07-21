@@ -13,9 +13,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.Properties;
 
 @Configuration
 @EnableWebSecurity
@@ -33,7 +37,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -43,13 +47,30 @@ public class SecurityConfig {
     }
 
     @Bean
+    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+
+        // retrieve builder from httpSecurity
+        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder
+                .userDetailsService(userDetailsServiceImpl)
+                .passwordEncoder(passwordEncoder());
+
+        authenticationManagerBuilder.inMemoryAuthentication()
+                .withUser("admin")
+                .password(passwordEncoder().encode("admin"))
+                .roles("USER", "ADMIN");
+
+        return authenticationManagerBuilder.build();
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
                                 .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
-                                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
-                                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/user/**").hasRole("ADMIN")
                                 .requestMatchers("/product/**").hasRole("ADMIN")
                                 .requestMatchers("/customer/**").authenticated()
                                 .requestMatchers("/purchaseOrder/**").authenticated()
@@ -66,31 +87,22 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        // retrieve builder from httpSecurity
-        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
 
-        authenticationManagerBuilder
-                .userDetailsService(userDetailsServiceImpl)
-                .passwordEncoder(passwordEncoder());
-        return authenticationManagerBuilder.build();
+    @Bean
+    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+
+        manager.createUser(User.withUsername("user")
+                .password(passwordEncoder().encode("user"))
+                .roles("USER")
+                .build());
+        manager.createUser(User.withUsername("admin")
+                .password(passwordEncoder().encode("admin"))
+                .roles("USER", "ADMIN")
+                .build());
+        return manager;
     }
 
-//    @Bean
-//    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-//
-//        manager.createUser(User.withUsername("user")
-//                .password(passwordEncoder.encode("userPass"))
-//                .roles("USER")
-//                .build());
-//        manager.createUser(User.withUsername("admin")
-//                .password(passwordEncoder.encode("adminPass"))
-//                .roles("USER", "ADMIN")
-//                .build());
-//
-//        return manager;
-//    }
-
 }
+
+

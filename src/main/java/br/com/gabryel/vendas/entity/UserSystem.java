@@ -10,8 +10,8 @@ import jakarta.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "USERS")
-public class User implements Serializable {
+@Table(name = "USER_SYSTEM")
+public class UserSystem implements Serializable  {
 
     private static final long serialVersionUID = -4221936297688491230L;
 
@@ -20,11 +20,36 @@ public class User implements Serializable {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "USERNAME" ,nullable = false, unique = true)
+    @Column(name = "USERNAME", nullable = false, unique = true, length = 50)
     private String username;
 
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
+    @Column(name = "ENABLED", nullable = false)
+    private Boolean active = true;
+
+    @Column
+    private Boolean admin;
+
+    public UserSystem() {
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Long getId() {
         return id;
@@ -32,6 +57,14 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 
     public String getUsername() {
@@ -42,11 +75,4 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
