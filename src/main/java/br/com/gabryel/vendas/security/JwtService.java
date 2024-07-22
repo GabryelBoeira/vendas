@@ -1,4 +1,4 @@
-package br.com.gabryel.vendas.service;
+package br.com.gabryel.vendas.security;
 
 import br.com.gabryel.vendas.entity.UserSystem;
 import io.jsonwebtoken.Claims;
@@ -75,7 +75,7 @@ public class JwtService {
      * @param  token the JWT token to validate
      * @return       true if the token is valid, false otherwise
      */
-    public boolean validateToken(String token) {
+    public boolean isValidToken(String token) {
         try {
             Claims claims = getClaims(token);
             LocalDateTime time = claims.getExpiration().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
@@ -96,6 +96,5 @@ public class JwtService {
     public String getUsername(String token) throws ExpiredJwtException {
         return (String) getClaims(token).getSubject();
     }
-
 
 }
