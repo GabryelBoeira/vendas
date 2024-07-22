@@ -1,20 +1,19 @@
 package br.com.gabryel.vendas.config.swagger;
 
 import br.com.gabryel.vendas.config.Messages;
-import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
-import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Arrays;
+
 @Configuration
-@SecurityScheme(
-        type = SecuritySchemeType.HTTP,
-        name = "basicAuth",
-        scheme = "basic")
 public class OpenAPIConfig {
 
     @Autowired
@@ -33,7 +32,23 @@ public class OpenAPIConfig {
                 .version(messages.getMessage("swagger.version"))
                 .license(license);
 
-        return new OpenAPI().info(info);
+        return new OpenAPI()
+                .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication", Arrays.asList("read", "write")))
+                .components(new Components().addSecuritySchemes("Bearer Authentication", securityScheme()))
+                .info(info);
+    }
+
+    /**
+     * Returns a SecurityScheme object representing the bearer authentication scheme.
+     *
+     * @return a SecurityScheme object with the name "bearerAuth", type HTTP, scheme "bearer", and bearer format "JWT"
+     */
+    private SecurityScheme securityScheme() {
+        return new SecurityScheme()
+                .name("bearerAuth")
+                .type(SecurityScheme.Type.HTTP)
+                .scheme("bearer")
+                .bearerFormat("JWT");
     }
 
 }
