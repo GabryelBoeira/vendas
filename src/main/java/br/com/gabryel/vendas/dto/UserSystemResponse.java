@@ -7,25 +7,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "User System Response")
 public class UserSystemResponse {
 
-    private String userName;
+    private String username;
     private Boolean admin;
     private Boolean active;
 
     public UserSystemResponse() {
     }
 
-    public UserSystemResponse(String userName, Boolean admin, Boolean active) {
-        this.userName = userName;
+    public UserSystemResponse(String username, Boolean admin, Boolean active) {
+        this.username = username;
         this.admin = admin;
         this.active = active;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Boolean getAdmin() {

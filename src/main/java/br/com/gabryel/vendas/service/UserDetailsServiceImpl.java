@@ -2,7 +2,10 @@ package br.com.gabryel.vendas.service;
 
 import br.com.gabryel.vendas.dto.UserSystemRequest;
 import br.com.gabryel.vendas.dto.UserSystemResponse;
+import br.com.gabryel.vendas.dto.security.CredentialsDTO;
+import br.com.gabryel.vendas.dto.security.TokenDTO;
 import br.com.gabryel.vendas.entity.UserSystem;
+import br.com.gabryel.vendas.exception.PasswordInvalidException;
 import br.com.gabryel.vendas.repository.UserSystemRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
@@ -55,5 +58,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return modelMapper.map(userRepository.save(userSystem), UserSystemResponse.class);
     }
+
+    /**
+     * Authenticates a user by verifying the password and returning the corresponding UserDetails object.
+     *
+     * @param  credentials  the CredentialsDTO object containing the username and password to be authenticated
+     * @return              the UserDetails object representing the authenticated user
+     * @throws PasswordInvalidException  if the password is invalid for the given username
+     */
+    public UserSystemResponse authenticateUser(CredentialsDTO credentials) throws PasswordInvalidException, UsernameNotFoundException {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        UserDetails user = loadUserByUsername(credentials.getUsername());
+        boolean matchesPassword = encoder.matches(credentials.getPassword(), user.getPassword());
+
+        if (!matchesPassword) throw new PasswordInvalidException("Password Invalid: " + credentials.getUsername());
+
+        return modelMapper.map(user, UserSystemResponse.class);
+    }
+
 
 }

@@ -1,6 +1,6 @@
 package br.com.gabryel.vendas.security;
 
-import br.com.gabryel.vendas.entity.UserSystem;
+import br.com.gabryel.vendas.dto.UserSystemResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -33,7 +32,8 @@ public class JwtService {
      * @param  userSystem  the user information used to generate the token
      * @return             the generated JWT token
      */
-    public String generateTokenJWT(UserSystem userSystem) throws UnsupportedEncodingException {
+    public String generateTokenJWT(UserSystemResponse userSystem) {
+
         long expiresParse = Long.parseLong(expiresIn);
         LocalDateTime time = LocalDateTime.now().plusMinutes(expiresParse);
 
@@ -94,7 +94,7 @@ public class JwtService {
      * @throws ExpiredJwtException if the token has expired
      */
     public String getUsername(String token) throws ExpiredJwtException {
-        return (String) getClaims(token).getSubject();
+        return getClaims(token).getSubject();
     }
 
 }
