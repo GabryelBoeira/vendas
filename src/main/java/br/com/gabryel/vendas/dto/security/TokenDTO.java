@@ -11,7 +11,7 @@ public class TokenDTO {
     public TokenDTO() {
     }
 
-    public TokenDTO(String token, String login) {
+    public TokenDTO(String login, String token) {
         this.token = token;
         this.login = login;
     }
