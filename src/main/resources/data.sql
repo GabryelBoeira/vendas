@@ -32,3 +32,6 @@ insert into `PEDIDO_ITEM` (`ID`, `PEDIDO_ID`, `PRODUTO_ID`, `QUANTIDADE`) values
 insert into `PEDIDO_ITEM` (`ID`, `PEDIDO_ID`, `PRODUTO_ID`, `QUANTIDADE`) values (DEFAULT, 3, 3, 5);
 insert into `PEDIDO_ITEM` (`ID`, `PEDIDO_ID`, `PRODUTO_ID`, `QUANTIDADE`) values (DEFAULT, 3, 4, 2);
 insert into `PEDIDO_ITEM` (`ID`, `PEDIDO_ID`, `PRODUTO_ID`, `QUANTIDADE`) values (DEFAULT, 3, 5, 7);
+
+---ADD USER
+insert into `USER_SYSTEM` (`ID`, `USERNAME`, `PASSWORD`, `ACTIVE`, `ADMIN`) values (DEFAULT, 'admin', '$2a$10$FuEq5aJhhvuTOW/amhE7VOyA8ktKU77CiFClPhL3XJTDbHDWXvBQO', true, true);

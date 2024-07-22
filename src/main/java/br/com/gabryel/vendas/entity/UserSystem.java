@@ -26,7 +26,7 @@ public class UserSystem implements Serializable  {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @Column(name = "ENABLED", nullable = false)
+    @Column(name = "ACTIVE", nullable = false)
     private Boolean active = true;
 
     @Column

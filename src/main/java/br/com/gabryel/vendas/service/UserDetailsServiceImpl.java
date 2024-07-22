@@ -3,23 +3,27 @@ package br.com.gabryel.vendas.service;
 import br.com.gabryel.vendas.dto.UserSystemRequest;
 import br.com.gabryel.vendas.dto.UserSystemResponse;
 import br.com.gabryel.vendas.dto.security.CredentialsDTO;
-import br.com.gabryel.vendas.dto.security.TokenDTO;
 import br.com.gabryel.vendas.entity.UserSystem;
 import br.com.gabryel.vendas.exception.PasswordInvalidException;
 import br.com.gabryel.vendas.repository.UserSystemRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+@Component
+public class UserDetailsServiceImpl implements AuthenticationProvider, UserDetailsService {
 
     private final UserSystemRepository userRepository;
     private final ModelMapper modelMapper;
@@ -76,5 +80,38 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return modelMapper.map(user, UserSystemResponse.class);
     }
 
+    /**
+     * <p> The authenticate method to authenticate the request. We will get the username from the Authentication object and will
+     * use the custom @userDetailsService service to load the given user.</p>
+     * @param authentication
+     * @return
+     * @throws AuthenticationException
+     */
+    @Override
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        final String username = (authentication.getPrincipal() == null) ? "NONE_PROVIDED" : authentication.getName();
+        if (StringUtils.isEmpty(username)) {
+            throw new BadCredentialsException("invalid login details");
+        }
+        // get user details using Spring security user details service
+        UserDetails user = null;
+        try {
+            user = loadUserByUsername(username);
+        } catch (UsernameNotFoundException exception) {
+            throw new BadCredentialsException("invalid login details");
+        }
+        return createSuccessfulAuthentication(authentication, user);
+    }
+
+    private Authentication createSuccessfulAuthentication(final Authentication authentication, final UserDetails user) {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), authentication.getCredentials(), user.getAuthorities());
+        token.setDetails(authentication.getDetails());
+        return token;
+    }
+
+    @Override
+    public boolean supports(Class < ? > authentication) {
+        return authentication.equals(UsernamePasswordAuthenticationToken.class);
+    }
 
 }
