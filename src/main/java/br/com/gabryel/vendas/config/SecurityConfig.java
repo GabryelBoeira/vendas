@@ -1,5 +1,7 @@
 package br.com.gabryel.vendas.config;
 
+import br.com.gabryel.vendas.security.JwtAuthFilter;
+import br.com.gabryel.vendas.security.JwtService;
 import br.com.gabryel.vendas.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +20,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.util.Properties;
 
@@ -31,10 +35,18 @@ public class SecurityConfig {
      */
 
     private final UserDetailsServiceImpl userDetailsServiceImpl;
+    private final JwtService jwtService;
 
-    public SecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl) {
+    public SecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl, JwtService jwtService) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
+        this.jwtService = jwtService;
     }
+
+    @Bean
+    public OncePerRequestFilter jwtFilter() {
+        return new JwtAuthFilter(jwtService, userDetailsServiceImpl);
+    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -80,9 +92,9 @@ public class SecurityConfig {
                                 .requestMatchers("/swagger-resources/**").permitAll()
                                 .requestMatchers("/v3/api-docs/**").permitAll()
                                 .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
-                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .sessionManagement(httpSec -> httpSec.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
