@@ -5,14 +5,19 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import jakarta.xml.bind.DatatypeConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.security.SecureRandom;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,7 +54,7 @@ public class JwtService {
                 .subject(userSystem.getUsername())
                 .expiration(date)
                 .claims(claims)
-                .signWith(SignatureAlgorithm.HS512, keySignature.getBytes(StandardCharsets.UTF_8))
+                .signWith(SignatureAlgorithm.HS256, keySignature.getBytes(StandardCharsets.UTF_8))
                 .compact();
     }
 
