@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.br.gabryel</groupId>
+    <groupId>com.br.gabryel.localizacao</groupId>
     <artifactId>localizacao</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>localizacao</name>
