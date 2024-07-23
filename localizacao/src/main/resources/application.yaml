@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: localizacao
+
+  #-------------------------
+  # Database
+  #-------------------------
+  datasource:
+    url: jdbc:mysql://localhost:3306/localizacao?useTimezone=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    data: classpath:data.sql
+    initialization-mode: always
+
+  #-------------------------
+  jpa:
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        ddl-auto: create-drop
+        show_sql: true
+        format_sql: true
+        globally_quoted_identifiers: true
+  #-------------------------
+
+spring.sql.init.mode: always
+

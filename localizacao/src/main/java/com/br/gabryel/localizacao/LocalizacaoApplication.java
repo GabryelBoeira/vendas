@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootApplication
-public class LocalizacaoApplication  implements CommandLineRunner {
+public class LocalizacaoApplication implements CommandLineRunner {
 
     @Autowired
     private CidadeRepository repository;
@@ -20,7 +20,7 @@ public class LocalizacaoApplication  implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        criarCidade();
+//        criarCidade();
         ListarCidades();
     }
 
