@@ -25,7 +25,7 @@ public class LocalizacaoApplication implements CommandLineRunner {
     }
 
     public void ListarCidades() {
-        for (Cidade c : service.findByFilterDynamic(new Cidade("A"))) {
+        for (Cidade c : service.findCidadeBySpec()) {
             System.out.println(c.toString());
         }
     }
