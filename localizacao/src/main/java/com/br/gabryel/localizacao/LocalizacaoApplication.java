@@ -2,6 +2,7 @@ package com.br.gabryel.localizacao;
 
 import com.br.gabryel.localizacao.entity.Cidade;
 import com.br.gabryel.localizacao.repository.CidadeRepository;
+import com.br.gabryel.localizacao.service.CidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LocalizacaoApplication implements CommandLineRunner {
 
     @Autowired
-    private CidadeRepository repository;
+    private CidadeService service;
 
     public static void main(String[] args) {
         SpringApplication.run(LocalizacaoApplication.class, args);
@@ -20,20 +21,13 @@ public class LocalizacaoApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        criarCidade();
         ListarCidades();
     }
 
-    @Transactional
-    public void criarCidade() {
-        repository.save(new Cidade(1L, "São Paulo", 123L));
-        repository.save(new Cidade(2L, "Rio de Janeiro", 456L));
-        repository.save(new Cidade(3L, "Brasilia", 789L));
-    }
-
     public void ListarCidades() {
-        for (Cidade c : repository.findAll()) {
+        for (Cidade c : service.findByNomeLike("%a%").getContent()) {
             System.out.println(c.toString());
         }
     }
+    
 }
