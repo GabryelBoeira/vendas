@@ -88,4 +88,11 @@ public class CidadeService {
         return repository.findAll(spec);
     }
 
+
+    public List<Cidade> findByNomeSQLNativo(String nome) {
+
+        return repository.findByNomeSQLNativo(nome)
+                .stream().map(cp -> Cidade.builder().id(cp.getId()).nome(cp.getNome()).build()).toList();
+    }
+
 }

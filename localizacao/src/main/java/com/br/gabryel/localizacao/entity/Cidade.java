@@ -35,9 +35,4 @@ public class Cidade implements Serializable  {
     @Column(name = "populacao")
     private Long populacao;
 
-    public Cidade(String nome) {
-        this.nome = nome;
-        //this.populacao = populacao;
-    }
-
 }

@@ -1,12 +1,14 @@
 package com.br.gabryel.localizacao.repository;
 
 import com.br.gabryel.localizacao.entity.Cidade;
+import com.br.gabryel.localizacao.repository.projections.CidadeProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -89,5 +91,15 @@ public interface CidadeRepository extends JpaRepository<Cidade, Long>, JpaSpecif
      * @return                a list of Cidade objects with a population between the given minimum and maximum values
      */
     List<Cidade> findByPopulacaoBetween(Long populacaoMin, Long populacaoMax);
+
+    /**
+     * Retrieves a list of Cidade objects whose name matches the given parameter.
+     *
+     * @param  nome    the name to search for
+     * @return          a list of Cidade objects whose name matches the given parameter
+     */
+    @Query(value = "SELECT c.id, c.nome FROM tb_cidades c WHERE upper(c.nome) LIKE CONCAT('%', upper( :nome ),'%')", nativeQuery = true)
+    List<CidadeProjection> findByNomeSQLNativo(@Param("nome") String nome);
+
 
 }
