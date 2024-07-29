@@ -19,5 +19,10 @@ public class SecutiryController {
         return ResponseEntity.ok().body("private Route ok! usuario: " + authentication.getName());
     }
 
+    @GetMapping("/admin")
+    public ResponseEntity<Object> adminRoute() {
+        return ResponseEntity.ok().body("admin Route ok!");
+    }
+
 
 }

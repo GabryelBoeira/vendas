@@ -24,14 +24,15 @@ public class FilterConfig extends OncePerRequestFilter {
         String secret = request.getHeader("x-secret");
 
         if (StringUtils.isAllBlank(secret)) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            filterChain.doFilter(request, response);
+            return;
         }
 
         if (secret.equals("secr3t")) {
             Authentication auth = new UsernamePasswordAuthenticationToken(
                     "user_secret",
                     null,
-                    List.of(new SimpleGrantedAuthority("ADMIN"), new SimpleGrantedAuthority("USER"))
+                    List.of(new SimpleGrantedAuthority("USER"))
             );
             SecurityContext securityContext = SecurityContextHolder.getContext();
             securityContext.setAuthentication(auth);
