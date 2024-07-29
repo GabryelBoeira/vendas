@@ -1,6 +1,7 @@
 package io.github.gabryel.securitysboot.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,8 +15,8 @@ public class SecutiryController {
 
 
     @GetMapping("/private")
-    public ResponseEntity<Object> privateRoute() {
-        return ResponseEntity.ok().body("private Route ok!");
+    public ResponseEntity<Object> privateRoute(Authentication authentication) {
+        return ResponseEntity.ok().body("private Route ok! usuario: " + authentication.getName());
     }
 
 
