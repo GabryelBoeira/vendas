@@ -17,7 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilter(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilter(HttpSecurity http, AuthenticationProviderConfig authConfig) throws Exception {
         return http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/public").permitAll()
@@ -26,6 +26,7 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
                 .logout(Customizer.withDefaults())
+                .authenticationProvider(authConfig)
                 .build();
     }
 
