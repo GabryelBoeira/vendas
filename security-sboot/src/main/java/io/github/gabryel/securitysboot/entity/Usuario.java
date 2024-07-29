@@ -5,13 +5,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 @Entity
 @Table(name = "USUARIOS")
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = -3007437570928515276L;
@@ -26,8 +30,6 @@ public class Usuario implements Serializable {
 
     private String nome;
 
-    public Usuario() {
-    }
 
     public String getId() {
         return id;

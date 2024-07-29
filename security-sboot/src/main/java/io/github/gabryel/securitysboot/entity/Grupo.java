@@ -5,13 +5,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 @Entity
 @Table(name = "GRUPOS")
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Grupo implements Serializable {
 
     @Id
@@ -19,9 +23,6 @@ public class Grupo implements Serializable {
     private String id;
 
     private String nome;
-
-    public Grupo() {
-    }
 
     public String getId() {
         return id;
