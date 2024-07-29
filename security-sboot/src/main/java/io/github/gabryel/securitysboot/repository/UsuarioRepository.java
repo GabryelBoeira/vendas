@@ -1,0 +1,9 @@
+package io.github.gabryel.securitysboot.repository;
+
+import io.github.gabryel.securitysboot.entity.Usuario;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UsuarioRepository extends JpaRepository<Usuario, String> {
+}
