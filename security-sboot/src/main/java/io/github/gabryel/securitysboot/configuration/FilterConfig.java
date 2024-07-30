@@ -1,5 +1,7 @@
 package io.github.gabryel.securitysboot.configuration;
 
+import io.github.gabryel.securitysboot.security.CustomAuthentication;
+import io.github.gabryel.securitysboot.security.IdentificacaoUsuario;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,11 +31,9 @@ public class FilterConfig extends OncePerRequestFilter {
         }
 
         if (secret.equals("secr3t")) {
-            Authentication auth = new UsernamePasswordAuthenticationToken(
-                    "user_secret",
-                    null,
-                    List.of(new SimpleGrantedAuthority("USER"))
-            );
+            IdentificacaoUsuario idUser = new IdentificacaoUsuario("id_secret", "user_secret", "user_secret", List.of("USER"));
+
+            Authentication auth = new CustomAuthentication(idUser);
             SecurityContext securityContext = SecurityContextHolder.getContext();
             securityContext.setAuthentication(auth);
         }

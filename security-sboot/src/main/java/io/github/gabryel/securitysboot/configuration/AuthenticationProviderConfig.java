@@ -1,5 +1,7 @@
 package io.github.gabryel.securitysboot.configuration;
 
+import io.github.gabryel.securitysboot.security.CustomAuthentication;
+import io.github.gabryel.securitysboot.security.IdentificacaoUsuario;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,10 +25,8 @@ public class AuthenticationProviderConfig implements AuthenticationProvider {
             return authentication;
         }
 
-        return new UsernamePasswordAuthenticationToken(
-                authentication.getName(),
-                null,
-                List.of(new SimpleGrantedAuthority("ADMIN"), new SimpleGrantedAuthority("USER"))
+        return new CustomAuthentication(
+                new IdentificacaoUsuario("master", "Master", loginMaster, List.of("ADMIN", "USER"))
         );
     }
 
