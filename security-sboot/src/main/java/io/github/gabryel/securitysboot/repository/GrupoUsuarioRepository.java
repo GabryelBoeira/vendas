@@ -12,10 +12,10 @@ import java.util.List;
 public interface GrupoUsuarioRepository extends JpaRepository<GrupoUsuario, String> {
 
     @Query(value = """ 
-        Select distinct g.nome from GrupoUsuario gu
-        join gu.grupo g
-        join gu.usuarios u
-        where u = ?1
+        SELECT DISTINCT g.nome FROM GrupoUsuario gu
+        JOIN gu.grupo g
+        JOIN gu.usuario u
+        WHERE u = ?1
      """)
     List<String> findPermissoesByUsuario(Usuario usuario);
 

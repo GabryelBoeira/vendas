@@ -23,17 +23,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilter(HttpSecurity http,
-                                              AuthenticationProviderConfig authConfig,
+                                              AuthenticationProviderConfig masterConfig,
+                                              CustomAuthenticationProvider usuarioConfig,
                                               FilterConfig filterConfig) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/public").permitAll()
-                        .requestMatchers("/admin").hasRole("ADMIN")
+                        .requestMatchers("/private").authenticated()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
-                .authenticationProvider(authConfig)
+                .authenticationProvider(usuarioConfig)
+                .authenticationProvider(masterConfig)
                 .addFilterBefore(filterConfig, UsernamePasswordAuthenticationFilter.class )
                 .build();
     }
