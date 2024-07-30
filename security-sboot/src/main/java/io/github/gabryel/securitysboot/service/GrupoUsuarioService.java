@@ -1,6 +1,7 @@
 package io.github.gabryel.securitysboot.service;
 
 import io.github.gabryel.securitysboot.entity.GrupoUsuario;
+import io.github.gabryel.securitysboot.entity.Usuario;
 import io.github.gabryel.securitysboot.repository.GrupoUsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,11 @@ public class GrupoUsuarioService {
     @Transactional
     public void savarTodos(List<GrupoUsuario> list) {
         grupoUsuarioRepository.saveAll(list);
+    }
+
+
+    public List<String> findPermissoesByUsuario(Usuario usuario) {
+        return grupoUsuarioRepository.findPermissoesByUsuario(usuario);
     }
 
 }

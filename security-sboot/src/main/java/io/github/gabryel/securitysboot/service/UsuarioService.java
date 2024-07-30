@@ -41,4 +41,14 @@ public class UsuarioService {
         return usuarioSalvo;
     }
 
+    public Usuario findUsuarioComPermissoesByLogin(String login) {
+        Usuario usuario = repository.findByLoginEquals(login).orElse(null);
+
+        if (usuario == null) return null;
+
+        usuario.setPermissoes(grupoUsuarioService.findPermissoesByUsuario(usuario));
+
+        return usuario;
+    }
+
 }

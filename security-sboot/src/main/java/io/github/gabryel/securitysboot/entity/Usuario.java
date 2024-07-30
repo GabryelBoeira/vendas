@@ -5,11 +5,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "USUARIOS")
@@ -30,6 +32,8 @@ public class Usuario implements Serializable {
 
     private String nome;
 
+    @Transient
+    private List<String> permissoes;
 
     public String getId() {
         return id;
@@ -61,5 +65,13 @@ public class Usuario implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public List<String> getPermissoes() {
+        return permissoes;
+    }
+
+    public void setPermissoes(List<String> permissoes) {
+        this.permissoes = permissoes;
     }
 }
